@@ -31,9 +31,8 @@ select option{background:#070e1a}
 </head>
 <body>
 <div id="app"><div style="min-height:100vh;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#f5a623">⚽ Loading…</div></div>
-
 <script>
-const SC={GROUP_WIN:2,GROUP_DRAW:1,QUALIFY:4,R32:5,R16:8,QF:12,SF:18,RUNNER_UP:22,CHAMPION:35,GOAL:3,ASSIST:1,BOOT:15};
+const SC={GROUP_WIN:2,GROUP_DRAW:1,QUALIFY:4,R32:5,R16:8,QF:12,SF:18,RUNNER_UP:22,CHAMPION:35,GOAL:3,BOOT:15};
 const STAGES=[
   {v:"group",l:"Group stage"},
   {v:"r32_exit",l:"R32 — eliminated"},
@@ -43,15 +42,64 @@ const STAGES=[
   {v:"runner_up",l:"Runner-up 🥈"},
   {v:"winner",l:"Champions 🏆"},
 ];
-const T1=[{id:"bra",name:"Brazil",f:"🇧🇷"},{id:"fra",name:"France",f:"🇫🇷"},{id:"arg",name:"Argentina",f:"🇦🇷"},{id:"ger",name:"Germany",f:"🇩🇪"},{id:"por",name:"Portugal",f:"🇵🇹"},{id:"esp",name:"Spain",f:"🇪🇸"}];
-const T2=[{id:"bel",name:"Belgium",f:"🇧🇪"},{id:"uru",name:"Uruguay",f:"🇺🇾"},{id:"col",name:"Colombia",f:"🇨🇴"},{id:"cro",name:"Croatia",f:"🇭🇷"},{id:"jpn",name:"Japan",f:"🇯🇵"},{id:"mar",name:"Morocco",f:"🇲🇦"},{id:"usa",name:"USA",f:"🇺🇸"},{id:"mex",name:"Mexico",f:"🇲🇽"},{id:"sen",name:"Senegal",f:"🇸🇳"},{id:"sui",name:"Switzerland",f:"🇨🇭"},{id:"ned",name:"Netherlands",f:"🇳🇱"},{id:"ita",name:"Italy",f:"🇮🇹"}];
-const T3P=[{id:"pol",name:"Poland",f:"🇵🇱"},{id:"den",name:"Denmark",f:"🇩🇰"},{id:"aut",name:"Austria",f:"🇦🇹"},{id:"tur",name:"Turkey",f:"🇹🇷"},{id:"ecu",name:"Ecuador",f:"🇪🇨"},{id:"nga",name:"Nigeria",f:"🇳🇬"},{id:"egy",name:"Egypt",f:"🇪🇬"},{id:"aus",name:"Australia",f:"🇦🇺"},{id:"srb",name:"Serbia",f:"🇷🇸"},{id:"can",name:"Canada",f:"🇨🇦"},{id:"sau",name:"Saudi Arabia",f:"🇸🇦"},{id:"tun",name:"Tunisia",f:"🇹🇳"},{id:"hun",name:"Hungary",f:"🇭🇺"},{id:"svk",name:"Slovakia",f:"🇸🇰"},{id:"rou",name:"Romania",f:"🇷🇴"},{id:"gre",name:"Greece",f:"🇬🇷"},{id:"nzl",name:"New Zealand",f:"🇳🇿"},{id:"alg",name:"Algeria",f:"🇩🇿"},{id:"pry",name:"Paraguay",f:"🇵🇾"},{id:"ven",name:"Venezuela",f:"🇻🇪"},{id:"irn",name:"Iran",f:"🇮🇷"},{id:"cmr",name:"Cameroon",f:"🇨🇲"},{id:"gha",name:"Ghana",f:"🇬🇭"},{id:"wal",name:"Wales",f:"🏴󠁧󠁢󠁷󠁬󠁳󠁿"},{id:"sco",name:"Scotland",f:"🏴󠁧󠁢󠁳󠁣󠁴󠁿"},{id:"pan",name:"Panama",f:"🇵🇦"},{id:"bol",name:"Bolivia",f:"🇧🇴"},{id:"qat",name:"Qatar",f:"🇶🇦"},{id:"chi",name:"Chile",f:"🇨🇱"},{id:"crc",name:"Costa Rica",f:"🇨🇷"},{id:"kor",name:"South Korea",f:"🇰🇷"}];
-const SCP=[{id:"mbappe",name:"Kylian Mbappé",country:"France",f:"🇫🇷"},{id:"vinicius",name:"Vinicius Jr",country:"Brazil",f:"🇧🇷"},{id:"yamal",name:"Lamine Yamal",country:"Spain",f:"🇪🇸"},{id:"griezmann",name:"Antoine Griezmann",country:"France",f:"🇫🇷"},{id:"alvarez",name:"Julián Álvarez",country:"Argentina",f:"🇦🇷"},{id:"lewandowski",name:"Robert Lewandowski",country:"Poland",f:"🇵🇱"},{id:"lukaku",name:"Romelu Lukaku",country:"Belgium",f:"🇧🇪"},{id:"nunez",name:"Darwin Núñez",country:"Uruguay",f:"🇺🇾"},{id:"rodrygo",name:"Rodrygo",country:"Brazil",f:"🇧🇷"},{id:"saka",name:"Bukayo Saka",country:"England",f:"🏴󠁧󠁢󠁥󠁮󠁧󠁿"}];
+const T1=[
+  {id:"bra",name:"Brazil",f:"🇧🇷"},{id:"fra",name:"France",f:"🇫🇷"},
+  {id:"arg",name:"Argentina",f:"🇦🇷"},{id:"ger",name:"Germany",f:"🇩🇪"},
+  {id:"por",name:"Portugal",f:"🇵🇹"},{id:"esp",name:"Spain",f:"🇪🇸"},
+];
+const T2=[
+  {id:"bel",name:"Belgium",f:"🇧🇪"},{id:"col",name:"Colombia",f:"🇨🇴"},
+  {id:"cro",name:"Croatia",f:"🇭🇷"},{id:"mar",name:"Morocco",f:"🇲🇦"},
+  {id:"usa",name:"USA",f:"🇺🇸"},{id:"mex",name:"Mexico",f:"🇲🇽"},
+  {id:"jpn",name:"Japan",f:"🇯🇵"},{id:"uru",name:"Uruguay",f:"🇺🇾"},
+  {id:"sui",name:"Switzerland",f:"🇨🇭"},{id:"kor",name:"South Korea",f:"🇰🇷"},
+  {id:"nor",name:"Norway",f:"🇳🇴"},{id:"tur",name:"Turkey",f:"🇹🇷"},
+];
+const T3P=[
+  {id:"sco",name:"Scotland",f:"🏴󠁧󠁢󠁳󠁣󠁴󠁿"},{id:"aut",name:"Austria",f:"🇦🇹"},
+  {id:"swe",name:"Sweden",f:"🇸🇪"},{id:"cze",name:"Czech Republic",f:"🇨🇿"},
+  {id:"bih",name:"Bosnia-Herzegovina",f:"🇧🇦"},{id:"ecu",name:"Ecuador",f:"🇪🇨"},
+  {id:"par",name:"Paraguay",f:"🇵🇾"},{id:"irn",name:"Iran",f:"🇮🇷"},
+  {id:"irq",name:"Iraq",f:"🇮🇶"},{id:"sau",name:"Saudi Arabia",f:"🇸🇦"},
+  {id:"jor",name:"Jordan",f:"🇯🇴"},{id:"qat",name:"Qatar",f:"🇶🇦"},
+  {id:"aus",name:"Australia",f:"🇦🇺"},{id:"uzb",name:"Uzbekistan",f:"🇺🇿"},
+  {id:"egy",name:"Egypt",f:"🇪🇬"},{id:"alg",name:"Algeria",f:"🇩🇿"},
+  {id:"tun",name:"Tunisia",f:"🇹🇳"},{id:"gha",name:"Ghana",f:"🇬🇭"},
+  {id:"civ",name:"Ivory Coast",f:"🇨🇮"},{id:"rsa",name:"South Africa",f:"🇿🇦"},
+  {id:"cod",name:"DR Congo",f:"🇨🇩"},{id:"cpv",name:"Cape Verde",f:"🇨🇻"},
+  {id:"can",name:"Canada",f:"🇨🇦"},{id:"pan",name:"Panama",f:"🇵🇦"},
+  {id:"nzl",name:"New Zealand",f:"🇳🇿"},{id:"hat",name:"Haiti",f:"🇭🇹"},
+  {id:"cur",name:"Curaçao",f:"🇨🇼"},{id:"sen",name:"Senegal",f:"🇸🇳"},
+];
+const SCP=[
+  {id:"mbappe",name:"Kylian Mbappé",country:"France",f:"🇫🇷"},
+  {id:"vinicius",name:"Vinicius Jr",country:"Brazil",f:"🇧🇷"},
+  {id:"yamal",name:"Lamine Yamal",country:"Spain",f:"🇪🇸"},
+  {id:"griezmann",name:"Antoine Griezmann",country:"France",f:"🇫🇷"},
+  {id:"alvarez",name:"Julián Álvarez",country:"Argentina",f:"🇦🇷"},
+  {id:"lewandowski",name:"Robert Lewandowski",country:"Poland",f:"🇵🇱"},
+  {id:"lukaku",name:"Romelu Lukaku",country:"Belgium",f:"🇧🇪"},
+  {id:"nunez",name:"Darwin Núñez",country:"Uruguay",f:"🇺🇾"},
+  {id:"rodrygo",name:"Rodrygo",country:"Brazil",f:"🇧🇷"},
+  {id:"saka",name:"Bukayo Saka",country:"England",f:"🏴󠁧󠁢󠁥󠁮󠁧󠁿"},
+];
 const MEDALS=["🥇","🥈","🥉","4️⃣","5️⃣","6️⃣"];
 
 const shuf=a=>{const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;};
-function calcTeam(id,ts){const d=ts[id]||{},st=d.stage||"group";let p=(d.gw||0)*SC.GROUP_WIN+(d.gd||0)*SC.GROUP_DRAW;if(st!=="group")p+=SC.QUALIFY;if(["r16_exit","qf_exit","sf_exit","runner_up","winner"].includes(st))p+=SC.R32;if(["qf_exit","sf_exit","runner_up","winner"].includes(st))p+=SC.R16;if(["sf_exit","runner_up","winner"].includes(st))p+=SC.QF;if(["runner_up","winner"].includes(st))p+=SC.SF;if(st==="runner_up")p+=SC.RUNNER_UP;if(st==="winner")p+=SC.CHAMPION;return p;}
-function calcScorer(id,ss){const d=ss[id]||{};return(d.g||0)*SC.GOAL+(d.a||0)*SC.ASSIST+(d.boot?SC.BOOT:0);}
+
+function calcTeam(id,ts){
+  const d=ts[id]||{},st=d.stage||"group";
+  let p=(d.gw||0)*SC.GROUP_WIN+(d.gd||0)*SC.GROUP_DRAW;
+  if(st!=="group"||d.qualified)p+=SC.QUALIFY;
+  if(["r16_exit","qf_exit","sf_exit","runner_up","winner"].includes(st))p+=SC.R32;
+  if(["qf_exit","sf_exit","runner_up","winner"].includes(st))p+=SC.R16;
+  if(["sf_exit","runner_up","winner"].includes(st))p+=SC.QF;
+  if(["runner_up","winner"].includes(st))p+=SC.SF;
+  if(st==="runner_up")p+=SC.RUNNER_UP;
+  if(st==="winner")p+=SC.CHAMPION;
+  return p;
+}
+function calcScorer(id,ss){const d=ss[id]||{};return(d.g||0)*SC.GOAL+(d.boot?SC.BOOT:0);}
 
 let state=null;
 let uiState={view:"loading",tab:"leaderboard",expanded:null,pinOk:false,pinVal:"",pinErr:false,adminConfirmReset:false};
@@ -121,14 +169,14 @@ function renderSetup(){
   if(s.step===3){
     const drawn=s.tier3;
     return`<div style="max-width:480px;margin:0 auto;padding:20px 16px">
-      <div style="text-align:center;margin-bottom:18px"><div style="font-size:1.2rem;font-weight:800;color:#f5a623">🎰 Tier 3 draw</div><div style="color:#4a6480;font-size:13px;margin-top:4px">Draw 6 outsiders at random from the pool of ${T3P.length}</div></div>
+      <div style="text-align:center;margin-bottom:18px"><div style="font-size:1.2rem;font-weight:800;color:#f5a623">🎰 Tier 3 draw</div><div style="color:#4a6480;font-size:13px;margin-top:4px">Draw 12 outsiders (2 per participant) from ${T3P.length} teams</div></div>
       <div class="card">${progress}
-        <div style="font-size:12px;color:#94adc8;margin-bottom:10px">Full pool:</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;max-height:170px;overflow-y:auto">
+        <div style="font-size:12px;color:#94adc8;margin-bottom:10px">Full pool — ${T3P.length} teams:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;max-height:190px;overflow-y:auto">
           ${T3P.map(t=>{const sel=drawn.some(d=>d.id===t.id);return`<span style="background:${sel?"#052b13":"#070e1a"};border:1px solid ${sel?"#22c55e":"#2a3a52"};border-radius:6px;padding:4px 8px;font-size:12px;color:${sel?"#86efac":"#94adc8"}">${t.f} ${t.name}${sel?" ✓":""}</span>`;}).join("")}
         </div>
-        ${drawn.length===0?`<div style="display:flex;gap:8px"><button class="btn btn-dark" onclick="setup.step=2;render()">← Back</button><button class="btn btn-gold" onclick="setup.tier3=shuf(T3P).slice(0,6);render()">🎲 Draw 6 teams</button></div>`
-        :`<div style="background:#070e1a;border:1px solid #22c55e;border-radius:8px;padding:10px;margin-bottom:12px"><div style="font-size:11px;font-weight:700;color:#22c55e;margin-bottom:6px">DRAWN TEAMS</div>${drawn.map(t=>`<div style="font-size:13px;padding:2px 0">${t.f} ${t.name}</div>`).join("")}</div><div style="display:flex;gap:8px"><button class="btn btn-dark" onclick="setup.tier3=[];render()">↺ Re-draw</button><button class="btn btn-gold" onclick="setup.step=4;render()">Confirm →</button></div>`}
+        ${drawn.length===0?`<div style="display:flex;gap:8px"><button class="btn btn-dark" onclick="setup.step=2;render()">← Back</button><button class="btn btn-gold" onclick="setup.tier3=shuf(T3P).slice(0,12);render()">🎲 Draw 12 teams</button></div>`
+        :`<div style="background:#070e1a;border:1px solid #22c55e;border-radius:8px;padding:10px;margin-bottom:12px"><div style="font-size:11px;font-weight:700;color:#22c55e;margin-bottom:6px">DRAWN TEAMS</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:3px">${drawn.map(t=>`<div style="font-size:13px;padding:2px 0">${t.f} ${t.name}</div>`).join("")}</div></div><div style="display:flex;gap:8px"><button class="btn btn-dark" onclick="setup.tier3=[];render()">↺ Re-draw</button><button class="btn btn-gold" onclick="setup.step=4;render()">Confirm →</button></div>`}
       </div>
     </div>`;
   }
@@ -156,7 +204,17 @@ function renderSetup(){
       <div style="text-align:center;margin-bottom:18px"><div style="font-size:1.2rem;font-weight:800;color:#f5a623">🎉 The draw!</div><div style="color:#4a6480;font-size:13px;margin-top:4px">Reveal each participant's allocation one by one</div></div>
       <div class="card">${progress}
         <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:16px">
-          ${s.names.map((name,i)=>{const e=s.draw[i],isRev=i<s.revealed;const t1=gT(e.t1),t2=gT(e.t2),t3=gT(e.t3),sc=gSc(e.scorer);return`<div style="background:${isRev?"#1a2d40":"#070e1a"};border:1px solid ${isRev?"#f5a623":"#1e3050"};border-radius:10px;padding:11px 13px;opacity:${isRev?1:.35};transition:all .5s"><div style="font-weight:700;margin-bottom:${isRev?6:0}px">${name}</div>${isRev?`<div style="display:flex;flex-wrap:wrap;gap:5px"><span class="badge tag-gold">⭐ ${t1.f} ${t1.name}</span><span class="badge tag-blue">🔵 ${t2.f} ${t2.name}</span><span class="badge tag-green">🟢 ${t3.f} ${t3.name}</span><span class="badge tag-purple">⚽ ${sc.f} ${sc.name}</span></div>`:""}</div>`;}).join("")}
+          ${s.names.map((name,i)=>{const e=s.draw[i],isRev=i<s.revealed;const t1=gT(e.t1),t2=gT(e.t2),t3a=gT(e.t3a),t3b=gT(e.t3b),sc=gSc(e.scorer);
+            return`<div style="background:${isRev?"#1a2d40":"#070e1a"};border:1px solid ${isRev?"#f5a623":"#1e3050"};border-radius:10px;padding:11px 13px;opacity:${isRev?1:.35};transition:all .5s">
+              <div style="font-weight:700;margin-bottom:${isRev?6:0}px">${name}</div>
+              ${isRev?`<div style="display:flex;flex-wrap:wrap;gap:5px">
+                <span class="badge tag-gold">⭐ ${t1.f} ${t1.name}</span>
+                <span class="badge tag-blue">🔵 ${t2.f} ${t2.name}</span>
+                <span class="badge tag-green">🟢 ${t3a.f} ${t3a.name}</span>
+                <span class="badge tag-green">🟢 ${t3b.f} ${t3b.name}</span>
+                <span class="badge tag-purple">⚽ ${sc.f} ${sc.name}</span>
+              </div>`:""}
+            </div>`;}).join("")}
         </div>
         ${s.revealed<s.names.length?`<button class="btn btn-gold" onclick="setup.revealed++;render()">${s.revealed===0?"🎲 Start the draw!":`▶ Reveal ${s.names[s.revealed]}`}</button>`
         :`<button class="btn btn-green btn-full" onclick="completeSetup()">✅ Launch sweepstake!</button>`}
@@ -167,8 +225,9 @@ function renderSetup(){
 }
 
 function doMainDraw(){
-  const sT1=shuf([...setup.tier1]),sT2=shuf([...setup.tier2]),sT3=shuf([...setup.tier3]),sSc=shuf([...setup.scorers]);
-  setup.draw=setup.names.map((_,i)=>({t1:sT1[i].id,t2:sT2[i].id,t3:sT3[i].id,scorer:sSc[i].id}));
+  const sT1=shuf([...setup.tier1]),sT2=shuf([...setup.tier2]);
+  const sT3=shuf([...setup.tier3]),sSc=shuf([...setup.scorers]);
+  setup.draw=setup.names.map((_,i)=>({t1:sT1[i].id,t2:sT2[i].id,t3a:sT3[i*2].id,t3b:sT3[i*2+1].id,scorer:sSc[i].id}));
   setup.revealed=0;setup.step=5;render();
 }
 
@@ -179,19 +238,30 @@ async function completeSetup(){
 }
 
 function renderMain(){
-  const{participants,draw,teamScores:ts={},scorerScores:ss={},tier1=[],tier2=[],tier3=[],scorers=[]}=state;
+  const{participants,draw,teamScores:ts={},scorerScores:ss={},tier1=[],tier2=[],tier3=[],scorers=[],lastSynced}=state;
   const allT=[...tier1,...tier2,...tier3];
   const gT=id=>allT.find(t=>t.id===id)||{name:id,f:"🏴"};
   const gSc=id=>scorers.find(s=>s.id===id)||{name:id,f:"❓"};
 
   const ranked=[...draw].map((e,i)=>{
-    const t1p=calcTeam(e.t1,ts),t2p=calcTeam(e.t2,ts),t3p=calcTeam(e.t3,ts),scp=calcScorer(e.scorer,ss);
-    return{...e,name:participants[i],t1p,t2p,t3p,scp,total:t1p+t2p+t3p+scp};
-  }).sort((a,b)=>{if(b.total!==a.total)return b.total-a.total;const gw=x=>(ts[x.t1]?.gw||0)+(ts[x.t2]?.gw||0)+(ts[x.t3]?.gw||0);return gw(b)-gw(a);});
+    const t1p=calcTeam(e.t1,ts),t2p=calcTeam(e.t2,ts);
+    const t3ap=calcTeam(e.t3a,ts),t3bp=calcTeam(e.t3b,ts);
+    const scp=calcScorer(e.scorer,ss);
+    return{...e,name:participants[i],t1p,t2p,t3ap,t3bp,scp,total:t1p+t2p+t3ap+t3bp+scp};
+  }).sort((a,b)=>{
+    if(b.total!==a.total)return b.total-a.total;
+    const gw=x=>(ts[x.t1]?.gw||0)+(ts[x.t2]?.gw||0)+(ts[x.t3a]?.gw||0)+(ts[x.t3b]?.gw||0);
+    return gw(b)-gw(a);
+  });
+
+  const syncLabel=lastSynced?`⚡ Last synced: ${new Date(lastSynced).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}`:"⚡ Auto-sync enabled";
 
   const header=`<div style="background:linear-gradient(135deg,#0f2044,#091830);border-bottom:1px solid #1e3050;padding:13px 16px 0">
     <div style="max-width:640px;margin:0 auto">
-      <div style="font-size:1.1rem;font-weight:800;color:#f5a623">⚽ World Cup 2026 Sweepstake</div>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px">
+        <div style="font-size:1.1rem;font-weight:800;color:#f5a623">⚽ World Cup 2026 Sweepstake</div>
+        <div style="font-size:11px;color:#4a6480">${syncLabel}</div>
+      </div>
       <div style="display:flex;gap:20px;margin-top:9px">
         ${[["leaderboard","🏆 Leaderboard"],["admin","⚙️ Admin"]].map(([t,l])=>`<button onclick="uiState.tab='${t}';render()" style="background:none;border:none;border-bottom:2px solid ${uiState.tab===t?"#f5a623":"transparent"};color:${uiState.tab===t?"#f5a623":"#6b8aaa"};cursor:pointer;font-size:13px;font-weight:${uiState.tab===t?"700":"400"};padding:7px 0">${l}</button>`).join("")}
       </div>
@@ -199,34 +269,41 @@ function renderMain(){
   </div>`;
 
   let body="";
+
   if(uiState.tab==="leaderboard"){
     const stL=id=>STAGES.find(s=>s.v===(ts[id]?.stage||"group"))?.l||"Group stage";
     const cards=ranked.map((p,rank)=>{
       const isExp=uiState.expanded===p.name;
       const sd=ss[p.scorer]||{};
-      const scorerStats=[sd.g?`${sd.g} goals`:"",sd.a?`${sd.a} assists`:"",sd.boot?"🥾 Boot":""].filter(Boolean).join(" · ")||"No stats yet";
+      const scorerStats=sd.g?`${sd.g} goal${sd.g===1?"":"s"}${sd.boot?" · 🥾 Boot":""}`:sd.boot?"🥾 Boot":"No goals yet";
       return`<div style="background:#132033;border:1px solid #1e3050;border-radius:12px;overflow:hidden">
         <button onclick="uiState.expanded=uiState.expanded==='${p.name}'?null:'${p.name}';render()" style="width:100%;background:none;border:none;cursor:pointer;padding:13px 15px;display:flex;align-items:center;gap:11px;color:#fff;text-align:left">
           <span style="font-size:1.4rem;min-width:30px;text-align:center">${MEDALS[rank]}</span>
           <div style="flex:1">
             <div style="font-weight:700;font-size:15px">${p.name}</div>
-            <div style="font-size:11px;color:#6b8aaa;margin-top:1px">${gT(p.t1).f} ${gT(p.t1).name} · ${gT(p.t2).f} ${gT(p.t2).name} · ${gT(p.t3).f} ${gT(p.t3).name}</div>
+            <div style="font-size:11px;color:#6b8aaa;margin-top:2px">${gT(p.t1).f} ${gT(p.t1).name} · ${gT(p.t2).f} ${gT(p.t2).name} · ${gT(p.t3a).f} ${gT(p.t3a).name} · ${gT(p.t3b).f} ${gT(p.t3b).name}</div>
           </div>
           <div style="text-align:right"><div style="font-size:1.7rem;font-weight:800;color:#f5a623;line-height:1">${p.total}</div><div style="font-size:11px;color:#4a6480">pts</div></div>
           <span style="color:#4a6480;font-size:12px">${isExp?"▲":"▼"}</span>
         </button>
-        ${isExp?`<div style="border-top:1px solid #1e3050;padding:11px 13px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          ${[["⭐ Tier 1",p.t1,p.t1p,true,"#f5a623"],["🔵 Tier 2",p.t2,p.t2p,true,"#60a5fa"],["🟢 Tier 3",p.t3,p.t3p,true,"#4ade80"],["⚽ Scorer",p.scorer,p.scp,false,"#c084fc"]].map(([label,id,pts,isT,col])=>{
-            const item=isT?gT(id):gSc(id);
-            return`<div style="background:#070e1a;border:1px solid ${col}22;border-radius:8px;padding:9px"><div style="font-size:10px;color:#4a6480;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">${label}</div><div style="font-weight:600;font-size:13px">${item.f} ${item.name}</div><div style="color:#f5a623;font-weight:700;font-size:15px;margin:2px 0">${pts} pts</div><div style="font-size:11px;color:#4a6480">${isT?stL(id):scorerStats}</div></div>`;
-          }).join("")}
-        </div></div>`:""}</div>`;
+        ${isExp?`<div style="border-top:1px solid #1e3050;padding:11px 13px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            ${[["⭐ Tier 1",p.t1,p.t1p,true,"#f5a623"],["🔵 Tier 2",p.t2,p.t2p,true,"#60a5fa"],["🟢 Tier 3a",p.t3a,p.t3ap,true,"#4ade80"],["🟢 Tier 3b",p.t3b,p.t3bp,true,"#4ade80"]].map(([label,id,pts,isT,col])=>{
+              const item=isT?gT(id):gSc(id);
+              return`<div style="background:#070e1a;border:1px solid ${col}22;border-radius:8px;padding:9px"><div style="font-size:10px;color:#4a6480;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">${label}</div><div style="font-weight:600;font-size:13px">${item.f} ${item.name}</div><div style="color:#f5a623;font-weight:700;font-size:15px;margin:2px 0">${pts} pts</div><div style="font-size:11px;color:#4a6480">${stL(id)}</div></div>`;
+            }).join("")}
+          </div>
+          <div style="margin-top:8px;background:#070e1a;border:1px solid #c084fc22;border-radius:8px;padding:9px;display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-size:10px;color:#4a6480;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">⚽ Scorer</div><div style="font-weight:600;font-size:13px">${gSc(p.scorer).f} ${gSc(p.scorer).name}</div><div style="font-size:11px;color:#4a6480;margin-top:1px">${scorerStats}</div></div>
+            <div style="color:#f5a623;font-weight:700;font-size:15px">${p.scp} pts</div>
+          </div>
+        </div>`:""}</div>`;
     }).join("");
 
     const guide=`<div style="background:#132033;border:1px solid #1e3050;border-radius:12px;padding:14px;margin-top:6px">
       <div style="font-size:11px;font-weight:700;color:#4a6480;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">📋 Scoring guide</div>
-      ${[["Group Win",SC.GROUP_WIN],["Group Draw",SC.GROUP_DRAW],["Qualify from group",SC.QUALIFY],["Win Round of 32",SC.R32],["Win Round of 16",SC.R16],["Win Quarter-final",SC.QF],["Win Semi-final",SC.SF],["Runner-up bonus",SC.RUNNER_UP],["Champions bonus",SC.CHAMPION],["Scorer: per goal",SC.GOAL],["Scorer: per assist",SC.ASSIST],["Golden Boot bonus",SC.BOOT]].map(([k,v])=>`<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:#94adc8">${k}</span><span style="font-size:12px;color:#f5a623;font-weight:700">+${v}</span></div>`).join("")}
-      <div style="font-size:11px;color:#4a6480;margin-top:8px;border-top:1px solid #1e3050;padding-top:8px">Tiebreaker: combined group wins across all 3 teams</div>
+      ${[["Group Win",SC.GROUP_WIN],["Group Draw",SC.GROUP_DRAW],["Qualify from group",SC.QUALIFY],["Win Round of 32",SC.R32],["Win Round of 16",SC.R16],["Win Quarter-final",SC.QF],["Win Semi-final",SC.SF],["Runner-up bonus",SC.RUNNER_UP],["Champions bonus",SC.CHAMPION],["Scorer: per goal",SC.GOAL],["Golden Boot bonus",SC.BOOT]].map(([k,v])=>`<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:#94adc8">${k}</span><span style="font-size:12px;color:#f5a623;font-weight:700">+${v}</span></div>`).join("")}
+      <div style="font-size:11px;color:#4a6480;margin-top:8px;border-top:1px solid #1e3050;padding-top:8px">Tiebreaker: combined group wins across all 4 teams · Team stats auto-synced from football-data.org</div>
     </div>`;
 
     body=`<div style="max-width:640px;margin:0 auto;padding:14px;display:flex;flex-direction:column;gap:9px">${cards}${guide}</div>`;
@@ -255,6 +332,7 @@ function submitPin(){if(uiState.pinVal===state.pin){uiState.pinOk=true;uiState.p
 function renderAdmin(st){
   const{tier1=[],tier2=[],tier3=[],scorers=[]}=st;
   const ts=st.teamScores||{},ss=st.scorerScores||{};
+  const syncNotice=`<div style="background:#001a2e;border:1px solid #60a5fa33;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#60a5fa">⚡ Team wins, draws and knockout stages sync automatically every 30 mins from football-data.org. Use the fields below to override or correct if needed.</div>`;
   const tierGroups=[["⭐ Tier 1 — Favourites","#f5a623",tier1],["🔵 Tier 2 — Contenders","#60a5fa",tier2],["🟢 Tier 3 — Outsiders","#4ade80",tier3]];
 
   const teamRows=tierGroups.map(([label,col,teams])=>`<div class="card" style="margin-bottom:10px">
@@ -272,52 +350,43 @@ function renderAdmin(st){
   </div>`).join("");
 
   const scorerRows=`<div class="card" style="margin-bottom:10px">
-    <div style="font-size:12px;font-weight:700;color:#c084fc;margin-bottom:11px">⚽ Top scorer stats</div>
+    <div style="font-size:12px;font-weight:700;color:#c084fc;margin-bottom:2px">⚽ Top scorer stats</div>
+    <div style="font-size:11px;color:#4a6480;margin-bottom:11px">Goals auto-sync every 30 mins. Only set Golden Boot manually at end of tournament.</div>
     ${scorers.map(sc=>{const d=ss[sc.id]||{},pts=calcScorer(sc.id,ss);return`<div style="background:#070e1a;border-radius:8px;padding:9px 11px;margin-bottom:7px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px"><span style="font-weight:600;font-size:13px">${sc.f} ${sc.name} <span style="font-size:11px;color:#4a6480">(${sc.country})</span></span><span style="color:#f5a623;font-weight:700;font-size:13px">${pts} pts</span></div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px">
         <div style="display:flex;gap:6px;align-items:center">
-          <span style="color:#4a6480">Goals</span><input type="number" min="0" value="${d.g||0}" oninput="updateScorer('${sc.id}','g',Math.max(0,+this.value))" style="width:50px;text-align:center;padding:4px 6px">
-          <span style="color:#4a6480">Assists</span><input type="number" min="0" value="${d.a||0}" oninput="updateScorer('${sc.id}','a',Math.max(0,+this.value))" style="width:50px;text-align:center;padding:4px 6px">
+          <span style="color:#4a6480">Goals</span><input type="number" min="0" value="${d.g||0}" oninput="updateScorer('${sc.id}','g',Math.max(0,+this.value))" style="width:55px;text-align:center;padding:4px 6px">
         </div>
         <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" ${d.boot?"checked":""} onchange="toggleBoot('${sc.id}',this.checked)" style="width:15px;height:15px">&nbsp;<span style="color:#f5a623">🥾 Golden Boot</span></label>
       </div>
     </div>`;}).join("")}
   </div>`;
 
-  const saveBtn=`<button class="btn btn-gold btn-full" id="save-btn" onclick="saveScores()" style="margin-bottom:10px">💾 Save all scores</button>`;
+  const saveBtn=`<button class="btn btn-gold btn-full" id="save-btn" onclick="saveScores()" style="margin-bottom:10px">💾 Save manual overrides</button>`;
   const resetSection=`<div style="border-top:1px solid #1e3050;padding-top:13px">
     ${!uiState.adminConfirmReset?`<button class="btn btn-dark btn-full" onclick="uiState.adminConfirmReset=true;render()" style="border-color:#7f1d1d;color:#fca5a5;font-size:12px">⚠️ Reset sweepstake</button>`
     :`<div style="background:#1a0808;border:1px solid #7f1d1d;border-radius:8px;padding:12px"><p style="color:#fca5a5;font-size:13px;margin-bottom:10px">This clears all data and returns to setup. Are you sure?</p><div style="display:flex;gap:8px"><button class="btn btn-dark" onclick="uiState.adminConfirmReset=false;render()">Cancel</button><button class="btn btn-red" onclick="resetState()">Reset everything</button></div></div>`}
   </div>`;
 
-  return`<div style="max-width:640px;margin:0 auto;padding:14px">${teamRows}${scorerRows}${saveBtn}${resetSection}</div>`;
+  return`<div style="max-width:640px;margin:0 auto;padding:14px">${syncNotice}${teamRows}${scorerRows}${saveBtn}${resetSection}</div>`;
 }
 
 function updateTeam(id,field,val){
-  const ts={...state.teamScores};
-  if(!ts[id])ts[id]={};
-  ts[id][field]=val;
-  state.teamScores=ts;
-  render();
+  const ts={...state.teamScores};if(!ts[id])ts[id]={};ts[id][field]=val;state.teamScores=ts;render();
 }
 function updateScorer(id,field,val){
-  const ss={...state.scorerScores};
-  if(!ss[id])ss[id]={};
-  ss[id][field]=val;
-  state.scorerScores=ss;
-  render();
+  const ss={...state.scorerScores};if(!ss[id])ss[id]={};ss[id][field]=val;state.scorerScores=ss;render();
 }
 function toggleBoot(id,checked){
   const ss={...state.scorerScores};
   state.scorers.forEach(s=>{if(!ss[s.id])ss[s.id]={};ss[s.id].boot=s.id===id?checked:false;});
-  state.scorerScores=ss;
-  render();
+  state.scorerScores=ss;render();
 }
 async function saveScores(){
   await saveState();
   const btn=document.getElementById("save-btn");
-  if(btn){btn.textContent="✅ Saved!";btn.style.background="#16a34a";setTimeout(()=>{if(btn){btn.textContent="💾 Save all scores";btn.style.background="#f5a623";}},2500);}
+  if(btn){btn.textContent="✅ Saved!";btn.style.background="#16a34a";setTimeout(()=>{if(btn){btn.textContent="💾 Save manual overrides";btn.style.background="#f5a623";}},2500);}
 }
 
 function render(){document.getElementById("app").innerHTML=renderApp();}
