@@ -47,6 +47,7 @@ const T1=[
   {id:"bra",name:"Brazil",f:"🇧🇷"},{id:"fra",name:"France",f:"🇫🇷"},
   {id:"arg",name:"Argentina",f:"🇦🇷"},{id:"ger",name:"Germany",f:"🇩🇪"},
   {id:"por",name:"Portugal",f:"🇵🇹"},{id:"esp",name:"Spain",f:"🇪🇸"},
+  {id:"nor",name:"Norway",f:"🇳🇴"},
 ];
 const T2=[
   {id:"bel",name:"Belgium",f:"🇧🇪"},{id:"col",name:"Colombia",f:"🇨🇴"},
@@ -54,7 +55,7 @@ const T2=[
   {id:"usa",name:"USA",f:"🇺🇸"},{id:"mex",name:"Mexico",f:"🇲🇽"},
   {id:"jpn",name:"Japan",f:"🇯🇵"},{id:"uru",name:"Uruguay",f:"🇺🇾"},
   {id:"sui",name:"Switzerland",f:"🇨🇭"},{id:"kor",name:"South Korea",f:"🇰🇷"},
-  {id:"nor",name:"Norway",f:"🇳🇴"},{id:"tur",name:"Turkey",f:"🇹🇷"},
+  {id:"tur",name:"Turkey",f:"🇹🇷"},
 ];
 const T3P=[
   {id:"sco",name:"Scotland",f:"🏴󠁧󠁢󠁳󠁣󠁴󠁿"},{id:"aut",name:"Austria",f:"🇦🇹"},
@@ -84,7 +85,7 @@ const SCP=[
   {id:"griezmann",name:"Antoine Griezmann",country:"France",f:"🇫🇷"},
   {id:"oyarzabal",name:"Mikel Oyarzabal",country:"Spain",f:"🇪🇸"},
 ];
-const MEDALS=["🥇","🥈","🥉","4️⃣","5️⃣","6️⃣"];
+const MEDALS=["🥇","🥈","🥉","4️⃣","5️⃣","6️⃣","7️⃣"];
 const shuf=a=>{const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;};
 
 function tierOf(id,t1,t2){
@@ -107,7 +108,7 @@ function calcScorer(id,ss){const d=ss[id]||{};return(d.g||0)*3+(d.boot?15:0);}
 
 let state=null;
 let uiState={view:"loading",tab:"leaderboard",expanded:null,pinOk:false,pinVal:"",pinErr:false,adminConfirmReset:false};
-let setup={step:1,pin:"2026",names:["","","","","",""],tier1:T1.map(t=>({...t})),tier2:T2.map(t=>({...t})),tier3:[],scorerPool:SCP.map(s=>({...s})),scorers:[],draw:[],revealed:0};
+let setup={step:1,pin:"2026",names:["","","","","","",""],tier1:T1.map(t=>({...t})),tier2:T2.map(t=>({...t})),tier3:[],scorerPool:SCP.map(s=>({...s})),scorers:[],draw:[],revealed:0};
 
 async function loadState(){
   try{const r=await fetch("/api/state");const d=await r.json();if(d)state=d;}catch(e){}
@@ -121,7 +122,7 @@ async function resetState(){
   try{await fetch("/api/state",{method:"DELETE"});}catch(e){}
   state=null;
   uiState={view:"setup",tab:"leaderboard",expanded:null,pinOk:false,pinVal:"",pinErr:false,adminConfirmReset:false};
-  setup={step:1,pin:"2026",names:["","","","","",""],tier1:T1.map(t=>({...t})),tier2:T2.map(t=>({...t})),tier3:[],scorerPool:SCP.map(s=>({...s})),scorers:[],draw:[],revealed:0};
+  setup={step:1,pin:"2026",names:["","","","","","",""],tier1:T1.map(t=>({...t})),tier2:T2.map(t=>({...t})),tier3:[],scorerPool:SCP.map(s=>({...s})),scorers:[],draw:[],revealed:0};
   render();
 }
 
@@ -176,13 +177,13 @@ function renderSetup(){
   if(s.step===3){
     const drawn=s.tier3;
     return`<div style="max-width:480px;margin:0 auto;padding:20px 16px">
-      <div style="text-align:center;margin-bottom:18px"><div style="font-size:1.1rem;font-weight:800;color:#1a2a4a">Tier 3 draw</div><div style="color:#8090a8;font-size:13px;margin-top:4px">Draw 12 outsiders (2 per participant) from ${T3P.length} teams</div></div>
+      <div style="text-align:center;margin-bottom:18px"><div style="font-size:1.1rem;font-weight:800;color:#1a2a4a">Tier 3 draw</div><div style="color:#8090a8;font-size:13px;margin-top:4px">Draw 14 outsiders (2 per participant) from ${T3P.length} teams</div></div>
       <div class="card">${progress}
         <div style="font-size:12px;color:#3a5080;margin-bottom:10px">Full pool:</div>
         <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;max-height:190px;overflow-y:auto">
           ${T3P.map(t=>{const sel=drawn.some(d=>d.id===t.id);return`<span style="background:${sel?"#e8f5ee":"#f4f6fa"};border:1px solid ${sel?"#22863a55":"#dde2ee"};border-radius:6px;padding:4px 8px;font-size:12px;color:${sel?"#166028":"#3a5080"}">${t.f} ${t.name}${sel?" ✓":""}</span>`;}).join("")}
         </div>
-        ${drawn.length===0?`<div style="display:flex;gap:8px"><button class="btn btn-dark" onclick="setup.step=2;render()">← Back</button><button class="btn btn-primary" onclick="setup.tier3=shuf(T3P).slice(0,12);render()">🎲 Draw 12 teams</button></div>`
+        ${drawn.length===0?`<div style="display:flex;gap:8px"><button class="btn btn-dark" onclick="setup.step=2;render()">← Back</button><button class="btn btn-primary" onclick="setup.tier3=shuf(T3P).slice(0,14);render()">🎲 Draw 14 teams</button></div>`
         :`<div style="background:#f4f6fa;border:1px solid #dde2ee;border-radius:8px;padding:10px;margin-bottom:12px"><div style="font-size:11px;font-weight:700;color:#166028;margin-bottom:6px">DRAWN TEAMS</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:3px">${drawn.map(t=>`<div style="font-size:13px;padding:2px 0;color:#1a2a4a">${t.f} ${t.name}</div>`).join("")}</div></div><div style="display:flex;gap:8px"><button class="btn btn-dark" onclick="setup.tier3=[];render()">↺ Re-draw</button><button class="btn btn-primary" onclick="setup.step=4;render()">Confirm →</button></div>`}
       </div>
     </div>`;
@@ -191,12 +192,12 @@ function renderSetup(){
   if(s.step===4){
     const drawn=s.scorers;
     return`<div style="max-width:480px;margin:0 auto;padding:20px 16px">
-      <div style="text-align:center;margin-bottom:18px"><div style="font-size:1.1rem;font-weight:800;color:#1a2a4a">Top scorer draw</div><div style="color:#8090a8;font-size:13px;margin-top:4px">Draw 6 from the pool of 10</div></div>
+      <div style="text-align:center;margin-bottom:18px"><div style="font-size:1.1rem;font-weight:800;color:#1a2a4a">Top scorer draw</div><div style="color:#8090a8;font-size:13px;margin-top:4px">Draw 7 from the pool of 10</div></div>
       <div class="card">${progress}
         <div style="font-size:12px;color:#3a5080;margin-bottom:10px">Based on pre-tournament Golden Boot odds — edit as needed:</div>
         ${s.scorerPool.map((sc,i)=>{const sel=drawn.some(d=>d.id===sc.id);return`<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><span style="font-size:1rem;min-width:22px">${sc.f}</span><input value="${sc.name}" oninput="setup.scorerPool[${i}].name=this.value" style="flex:1;${sel?"background:#f3eeff;border-color:#7c3aed55":""}"><span style="font-size:11px;color:#8090a8;min-width:60px;text-align:right">${sc.country}</span>${sel?`<span style="color:#5b21b6;font-size:13px;min-width:14px">✓</span>`:`<span style="min-width:14px"></span>`}</div>`;}).join("")}
         <div style="display:flex;gap:8px;margin-top:14px">
-          ${drawn.length===0?`<button class="btn btn-dark" onclick="setup.step=3;render()">← Back</button><button class="btn btn-primary" onclick="setup.scorers=shuf([...setup.scorerPool]).slice(0,6);render()">🎲 Draw 6 scorers</button>`
+          ${drawn.length===0?`<button class="btn btn-dark" onclick="setup.step=3;render()">← Back</button><button class="btn btn-primary" onclick="setup.scorers=shuf([...setup.scorerPool]).slice(0,7);render()">🎲 Draw 7 scorers</button>`
           :`<button class="btn btn-dark" onclick="setup.scorers=[];render()">↺ Re-draw</button><button class="btn btn-primary" onclick="doMainDraw()">Do the draw! →</button>`}
         </div>
       </div>
