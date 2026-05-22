@@ -233,7 +233,7 @@ function renderSetup(){
 }
 
 function collectNamesAndNext(){
-  for(let i=0;i<6;i++){const el=document.getElementById("name-"+i);if(el)setup.names[i]=el.value;}
+  for(let i=0;i<7;i++){const el=document.getElementById("name-"+i);if(el)setup.names[i]=el.value;}
   const pinEl=document.getElementById("setup-pin");if(pinEl)setup.pin=pinEl.value;
   if(setup.names.filter(n=>n.trim()).length===6){setup.step=2;render();}
   else{alert("Please enter all 6 participant names.");}
