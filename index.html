@@ -293,17 +293,17 @@ function renderMain(){
       const scorerStats=sd.g?`${sd.g} goal${sd.g===1?"":"s"}${sd.boot?" · 🥾 Boot":""}`:sd.boot?"🥾 Boot":"No goals yet";
       const sc=gSc(p.scorer);
       return`<div style="background:#fff;border:1px solid #dde2ee;border-radius:12px;overflow:hidden">
-        <button onclick="uiState.expanded=uiState.expanded==='${p.name}'?null:'${p.name}';render()" style="width:100%;background:none;border:none;cursor:pointer;padding:13px 15px;display:flex;align-items:center;gap:11px;color:#1a2a4a;text-align:left">
+        <button onclick="uiState.expanded=uiState.expanded==='${p.name}'?null:'${p.name}';render()" style="width:100%;background:none;border:none;cursor:pointer;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;color:#1a2a4a;text-align:left">
           <span style="font-size:1.4rem;min-width:30px;text-align:center">${MEDALS[rank]}</span>
           <div style="flex:1;min-width:0">
             <div style="font-weight:700;font-size:15px">${p.name}</div>
-            <div style="font-size:11px;color:#8090a8;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${gT(p.t1).f} ${gT(p.t1).name} · ${gT(p.t2).f} ${gT(p.t2).name} · ${gT(p.t3a).f} ${gT(p.t3a).name} · ${gT(p.t3b).f} ${gT(p.t3b).name} · ${sc.f} ${sc.name}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:5px"><span style="font-size:11px;background:#fdf3e0;border-radius:4px;padding:2px 6px;color:#92600a">${gT(p.t1).f} ${gT(p.t1).name}</span><span style="font-size:11px;background:#e8f0fc;border-radius:4px;padding:2px 6px;color:#1a3a70">${gT(p.t2).f} ${gT(p.t2).name}</span><span style="font-size:11px;background:#e8f5ee;border-radius:4px;padding:2px 6px;color:#166028">${gT(p.t3a).f} ${gT(p.t3a).name}</span><span style="font-size:11px;background:#e8f5ee;border-radius:4px;padding:2px 6px;color:#166028">${gT(p.t3b).f} ${gT(p.t3b).name}</span><span style="font-size:11px;background:#f3eeff;border-radius:4px;padding:2px 6px;color:#5b21b6">${sc.f} ${sc.name}</span></div>
           </div>
-          <div style="text-align:right;flex-shrink:0"><div style="font-size:1.7rem;font-weight:800;color:#1a2a4a;line-height:1">${p.total}</div><div style="font-size:11px;color:#8090a8">pts</div></div>
+          <div style="text-align:right;flex-shrink:0;margin-top:2px"><div style="font-size:1.5rem;font-weight:800;color:#1a2a4a;line-height:1">${p.total}</div><div style="font-size:11px;color:#8090a8">pts</div></div>
           <span style="color:#8090a8;font-size:12px">${isExp?"▲":"▼"}</span>
         </button>
         ${isExp?`<div style="border-top:1px solid #e8ecf4;padding:11px 13px;background:#f8f9fc">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:8px">
             ${[["⭐ Tier 1",p.t1,p.t1p,"tag-t1","#92600a"],["🔵 Tier 2",p.t2,p.t2p,"tag-t2","#1a3a70"],["🟢 Tier 3",p.t3a,p.t3ap,"tag-t3","#166028"],["🟢 Tier 3",p.t3b,p.t3bp,"tag-t3","#166028"]].map(([label,id,pts,tag,col])=>{
               const item=gT(id);
               return`<div style="background:#fff;border:1px solid #dde2ee;border-radius:8px;padding:9px"><div style="font-size:10px;color:#8090a8;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">${label}</div><div style="font-weight:600;font-size:13px;color:#1a2a4a">${item.f} ${item.name}</div><div style="color:${col};font-weight:700;font-size:15px;margin:2px 0">${pts} pts</div><div style="font-size:11px;color:#8090a8">${stL(id)}</div></div>`;
