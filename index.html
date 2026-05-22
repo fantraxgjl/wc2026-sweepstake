@@ -333,7 +333,7 @@ function renderMain(){
         <div style="font-size:2.2rem;margin-bottom:8px">🔐</div>
         <div style="font-weight:700;font-size:1rem;margin-bottom:5px;color:#1a2a4a">Admin access</div>
         <div style="color:#8090a8;font-size:13px;margin-bottom:16px">Enter the PIN to update scores</div>
-        <input type="password" id="pin-input" value="${uiState.pinVal}" oninput="uiState.pinVal=this.value;uiState.pinErr=false;render()" onkeydown="if(event.key==='Enter')submitPin()" placeholder="PIN" style="text-align:center;width:120px;font-size:1.1rem;letter-spacing:.2em;padding:10px" maxlength="10">
+        <input type="password" id="pin-input" value="${uiState.pinVal}" onkeydown="if(event.key==='Enter')submitPin()" placeholder="PIN" style="text-align:center;width:120px;font-size:1.1rem;letter-spacing:.2em;padding:10px" maxlength="10">
         ${uiState.pinErr?`<div style="color:#dc2626;font-size:12px;margin-top:7px">Incorrect PIN</div>`:""}
         <br><button class="btn btn-primary" onclick="submitPin()" style="margin-top:13px">Unlock</button>
       </div></div>`;
@@ -345,7 +345,7 @@ function renderMain(){
   return header+body;
 }
 
-function submitPin(){if(uiState.pinVal===state.pin){uiState.pinOk=true;uiState.pinErr=false;}else{uiState.pinErr=true;}render();}
+function submitPin(){const el=document.getElementById('pin-input');const val=el?el.value:uiState.pinVal;if(val===state.pin){uiState.pinOk=true;uiState.pinErr=false;}else{uiState.pinErr=true;uiState.pinVal=val;}render();}
 
 function renderAdmin(st){
   const{tier1=[],tier2=[],tier3=[],scorers=[]}=st;
