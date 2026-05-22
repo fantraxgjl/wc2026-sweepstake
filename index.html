@@ -127,6 +127,12 @@ function renderApp(){
   return renderMain();
 }
 
+function collectNamesAndNext(){
+  for(let i=0;i<6;i++){const el=document.getElementById('name-'+i);if(el)setup.names[i]=el.value;}
+  const pinEl=document.getElementById('setup-pin');if(pinEl)setup.pin=pinEl.value;
+  if(setup.names.filter(n=>n.trim()).length===6){setup.step=2;render();}
+  else{alert('Please enter all 6 participant names.');}
+}
 function renderSetup(){
   const s=setup;
   const progress=`<div style="height:4px;background:#1e3050;border-radius:2px;margin:10px 0 4px"><div style="height:100%;background:#f5a623;border-radius:2px;width:${(s.step/5)*100}%;transition:width .4s"></div></div><div style="font-size:11px;color:#4a6480;margin-bottom:16px">Step ${s.step} of 5</div>`;
@@ -137,14 +143,14 @@ function renderSetup(){
       <div style="text-align:center;margin-bottom:18px"><div style="font-size:1.4rem;font-weight:800;color:#f5a623">⚽ World Cup 2026 Sweepstake</div><div style="color:#4a6480;font-size:13px;margin-top:4px">Set up your sweepstake — enter names &amp; PIN</div></div>
       <div class="card">${progress}
         <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:16px">
-          ${s.names.map((n,i)=>`<div style="display:flex;align-items:center;gap:8px"><span style="color:#4a6480;font-size:12px;min-width:18px;text-align:right">${i+1}.</span><input value="${n}" oninput="setup.names[${i}]=this.value;render()" placeholder="Participant ${i+1}"></div>`).join("")}
+          ${s.names.map((n,i)=>`<div style="display:flex;align-items:center;gap:8px"><span style="color:#4a6480;font-size:12px;min-width:18px;text-align:right">${i+1}.</span><input id="name-${i}" value="${n}" placeholder="Participant ${i+1}"></div>`).join("")}
         </div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:10px;background:#070e1a;border-radius:8px;flex-wrap:wrap">
           <span style="font-size:13px;color:#94adc8">🔐 Admin PIN</span>
-          <input value="${s.pin}" oninput="setup.pin=this.value;render()" style="width:90px;text-align:center;font-weight:700;letter-spacing:.15em" maxlength="10">
+          <input id="setup-pin" value="${s.pin}" style="width:90px;text-align:center;font-weight:700;letter-spacing:.15em" maxlength="10">
           <span style="font-size:11px;color:#4a6480">Participants cannot update scores without this</span>
         </div>
-        <button class="btn btn-gold" onclick="if(setup.names.filter(n=>n.trim()).length===6){setup.step=2;render()}" style="opacity:${valid?1:.45}">Next →</button>
+        <button class="btn btn-gold" onclick="collectNamesAndNext()">Next →</button>
       </div>
     </div>`;
   }
