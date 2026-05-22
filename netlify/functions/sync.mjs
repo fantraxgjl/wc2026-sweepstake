@@ -27,9 +27,10 @@ for (const [id, aliases] of Object.entries(TEAM_ALIASES)) {
 }
 
 const SCORER_ALIASES = {
-  mbappe:["mbappe"],vinicius:["vinicius"],yamal:["yamal"],griezmann:["griezmann"],
-  alvarez:["j. alvarez","julian alvarez","j alvarez"],lewandowski:["lewandowski"],
-  lukaku:["lukaku"],nunez:["nunez","darwin"],rodrygo:["rodrygo"],saka:["saka"],
+  mbappe:["mbappe"],kane:["kane","harry kane"],messi:["messi"],haaland:["haaland"],
+  yamal:["yamal"],vinicius:["vinicius"],ronaldo:["ronaldo","c. ronaldo"],
+  alvarez:["j. alvarez","julian alvarez","j alvarez"],griezmann:["griezmann"],
+  lewandowski:["lewandowski"],
 };
 
 function findTeamId(apiName) {
