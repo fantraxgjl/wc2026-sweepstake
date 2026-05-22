@@ -137,7 +137,7 @@ function renderSetup(){
   const progress=`<div style="height:3px;background:#e8ecf4;border-radius:2px;margin:10px 0 4px"><div style="height:100%;background:#1a2a4a;border-radius:2px;width:${(s.step/5)*100}%;transition:width .4s"></div></div><div style="font-size:11px;color:#8090a8;margin-bottom:16px">Step ${s.step} of 5</div>`;
 
   if(s.step===1){
-    const valid=s.names.filter(n=>n.trim()).length===6;
+    const valid=s.names.filter(n=>n.trim()).length===7;
     return`<div style="max-width:480px;margin:0 auto;padding:20px 16px">
       <div style="text-align:center;margin-bottom:18px">
         <div style="background:#1a2a4a;display:inline-block;padding:10px 20px;border-radius:10px;margin-bottom:10px"><span style="color:#fff;font-size:1.3rem;font-weight:800">⚽ World Cup 2026</span></div>
@@ -235,7 +235,7 @@ function renderSetup(){
 function collectNamesAndNext(){
   for(let i=0;i<7;i++){const el=document.getElementById("name-"+i);if(el)setup.names[i]=el.value;}
   const pinEl=document.getElementById("setup-pin");if(pinEl)setup.pin=pinEl.value;
-  if(setup.names.filter(n=>n.trim()).length===6){setup.step=2;render();}
+  if(setup.names.filter(n=>n.trim()).length===7){setup.step=2;render();}
   else{alert("Please enter all 7 participant names.");}
 }
 
