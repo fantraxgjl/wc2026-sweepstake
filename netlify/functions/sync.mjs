@@ -59,7 +59,7 @@ export default async () => {
     const [sRes,mRes,scRes]=await Promise.all([
       fetch(`${BASE}/competitions/WC/standings`,{headers:hdrs}),
       fetch(`${BASE}/competitions/WC/matches`,{headers:hdrs}),
-      fetch(`${BASE}/competitions/WC/scorers?limit=20`,{headers:hdrs}),
+      fetch(`${BASE}/competitions/WC/scorers?limit=100`,{headers:hdrs}),
     ]);
     if(!sRes.ok||!mRes.ok||!scRes.ok){console.error("[sync] API error",sRes.status,mRes.status,scRes.status);return;}
     const [sd,md,scd]=await Promise.all([sRes.json(),mRes.json(),scRes.json()]);
