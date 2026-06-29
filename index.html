@@ -99,10 +99,9 @@ function calcTeam(id,ts,tier){
   const stageKey=st==="winner"?"champion":st;
   const flat=SC_FLAT[stageKey]??0;
   const gpts=(d.gw||0)*2+(d.gd||0)*1;
-  // Qualify bonus is for reaching the knockouts at all. Sync flags every knockout
-  // participant via d.qualified; the st!=="group" fallback covers manual overrides.
-  const qualBonus=(d.qualified||st!=="group")?4:0;
-  const total=gpts+qualBonus+flat;
+  // No standalone qualify bonus: the scoring guide bundles qualification into the
+  // R32 win ("Qualify + win R32 → +10"), so points are group points + flat stage only.
+  const total=gpts+flat;
   return tier===3?Math.round(total*T3_MULT):total;
 }
 function calcScorer(id,ss){const d=ss[id]||{};return(d.g||0)*3+(d.boot?15:0);}
