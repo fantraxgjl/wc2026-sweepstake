@@ -351,6 +351,7 @@ function renderAdmin(st){
   const{tier1=[],tier2=[],tier3=[],scorers=[]}=st;
   const ts=st.teamScores||{},ss=st.scorerScores||{};
   const syncNotice=`<div style="background:#e8f0fc;border:1px solid #3a5a9033;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#1a3a70">⚡ Team results sync automatically every 30 mins from football-data.org. Use the fields below to override if needed.</div>`;
+  const syncBtn=`<button class="btn btn-primary btn-full" id="sync-btn" onclick="forceSync()" style="margin-bottom:12px">🔄 Sync now</button>`;
   const tierGroups=[["⭐ Tier 1 — Favourites","#92600a",tier1],["🔵 Tier 2 — Contenders","#1a3a70",tier2],["🟢 Tier 3 — Outsiders (×1.5)","#166028",tier3]];
 
   const teamRows=tierGroups.map(([label,col,teams])=>`<div class="card" style="margin-bottom:10px">
@@ -387,7 +388,27 @@ function renderAdmin(st){
     :`<div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;padding:12px"><p style="color:#991b1b;font-size:13px;margin-bottom:10px">This clears all data and returns to setup. Are you sure?</p><div style="display:flex;gap:8px"><button class="btn btn-dark" onclick="uiState.adminConfirmReset=false;render()">Cancel</button><button class="btn btn-red" onclick="resetState()">Reset everything</button></div></div>`}
   </div>`;
 
-  return`<div style="max-width:640px;margin:0 auto;padding:14px">${syncNotice}${teamRows}${scorerRows}${saveBtn}${resetSection}</div>`;
+  return`<div style="max-width:640px;margin:0 auto;padding:14px">${syncNotice}${syncBtn}${teamRows}${scorerRows}${saveBtn}${resetSection}</div>`;
+}
+
+async function forceSync(){
+  const setLabel=(t,disabled)=>{const b=document.getElementById("sync-btn");if(b){b.textContent=t;b.disabled=disabled;}};
+  setLabel("⏳ Syncing…",true);
+  try{
+    const r=await fetch("/api/sync",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({pin:state.pin})});
+    const d=await r.json();
+    if(d.ok&&d.state){
+      state=d.state;render();
+      setLabel("✅ Synced!",true);
+      setTimeout(()=>setLabel("🔄 Sync now",false),2500);
+    }else{
+      setLabel(d.reason==="api-error"?"⚠️ Data source error":"⚠️ Sync failed",false);
+      setTimeout(()=>setLabel("🔄 Sync now",false),3500);
+    }
+  }catch(e){
+    setLabel("⚠️ Sync failed",false);
+    setTimeout(()=>setLabel("🔄 Sync now",false),3500);
+  }
 }
 
 function updateTeam(id,field,val){
