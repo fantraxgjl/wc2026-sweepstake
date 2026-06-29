@@ -45,7 +45,20 @@ function findScorerId(playerName){
   return null;
 }
 
-const STAGE_RANK={"ROUND_OF_32":1,"ROUND_OF_16":2,"QUARTER_FINALS":3,"SEMI_FINALS":4,"FINAL":5};
+// Map a (possibly differently-spelled) API stage string to a canonical knockout round.
+// football-data.org may label the first 48-team knockout round ROUND_OF_32 / LAST_32 / etc.,
+// so we match on the meaningful token rather than one exact spelling.
+function normStage(s){
+  const u=(s||"").toUpperCase();
+  if(/THIRD|3RD/.test(u))return null;        // third-place play-off: no progression points
+  if(/QUARTER/.test(u))return "QF";          // checked before FINAL: QUARTER_FINALS contains "FINAL"
+  if(/SEMI/.test(u))return "SF";             // checked before FINAL: SEMI_FINALS contains "FINAL"
+  if(/32/.test(u))return "R32";
+  if(/16/.test(u))return "R16";
+  if(/FINAL/.test(u))return "FINAL";
+  return null;                               // group stage / unknown → ignored here
+}
+const STAGE_RANK={R32:1,R16:2,QF:3,SF:4,FINAL:5};
 const RANK_TO_STAGE={1:"r32_exit",2:"r16_exit",3:"qf_exit",4:"sf_exit",5:"runner_up",6:"winner"};
 
 export default async () => {
@@ -80,7 +93,8 @@ export default async () => {
     const kt={};
     const ensure=id=>{if(!kt[id])kt[id]={stageRank:0,qualified:false};};
     for(const match of md?.matches||[]){
-      const rank=STAGE_RANK[match.stage];if(!rank)continue;
+      const stage=normStage(match.stage);if(!stage)continue;
+      const rank=STAGE_RANK[stage];
       const hId=findTeamId(match.homeTeam?.name),aId=findTeamId(match.awayTeam?.name);
       if(hId){ensure(hId);kt[hId].qualified=true;}
       if(aId){ensure(aId);kt[aId].qualified=true;}
@@ -89,8 +103,12 @@ export default async () => {
       const hg=match.score?.fullTime?.home??0,ag=match.score?.fullTime?.away??0;
       const homeWon=(hp!=null&&ap!=null)?hp>ap:hg>ag;
       const wId=homeWon?hId:aId,lId=homeWon?aId:hId;
-      if(lId){ensure(lId);if(rank>kt[lId].stageRank)kt[lId].stageRank=rank;}
-      if(wId){ensure(wId);const wr=match.stage==="FINAL"?6:rank+1;if(wr>kt[wId].stageRank)kt[wId].stageRank=wr;}
+      // Round-won model: a team banks a round's flat points only by WINNING that round
+      // (winning the FINAL = champion). The single exception for a loser is the FINAL,
+      // where the runner-up banks runner-up points; losers of earlier rounds keep only
+      // the rounds they already won, plus the separate +4 qualify bonus.
+      if(wId){ensure(wId);const wr=stage==="FINAL"?6:rank;if(wr>kt[wId].stageRank)kt[wId].stageRank=wr;}
+      if(lId&&stage==="FINAL"){ensure(lId);if(kt[lId].stageRank<5)kt[lId].stageRank=5;}
     }
 
     for(const [id,info] of Object.entries(kt)){

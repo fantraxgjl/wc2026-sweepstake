@@ -99,8 +99,9 @@ function calcTeam(id,ts,tier){
   const stageKey=st==="winner"?"champion":st;
   const flat=SC_FLAT[stageKey]??0;
   const gpts=(d.gw||0)*2+(d.gd||0)*1;
-  const raw=gpts+flat+(st!=="group"&&st!=="r32_exit"?0:0);
-  const qualBonus=(st!=="group"?4:0);
+  // Qualify bonus is for reaching the knockouts at all. Sync flags every knockout
+  // participant via d.qualified; the st!=="group" fallback covers manual overrides.
+  const qualBonus=(d.qualified||st!=="group")?4:0;
   const total=gpts+qualBonus+flat;
   return tier===3?Math.round(total*T3_MULT):total;
 }
